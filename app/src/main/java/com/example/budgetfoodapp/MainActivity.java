@@ -1,5 +1,6 @@
 package com.example.budgetfoodapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -51,5 +52,9 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onRecipeActivity(View v){
+        startActivity(new Intent(MainActivity.this, RecipeApi.class));
     }
 }

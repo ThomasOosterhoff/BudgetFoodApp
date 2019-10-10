@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecipeApi">
+
+    <Button
+        android:id="@+id/recipeSubmitButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:onClick="showRecipe"
+        android:text="@android:string/search_go"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="46dp"
+        tools:layout_editor_absoluteY="85dp">
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/includedIngredients"
+        android:layout_width="259dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="96dp"
+        android:hint="Include: Tomato, Cheese"
+        app:layout_constraintBottom_toTopOf="@+id/excludeIngredient"
+        app:layout_constraintEnd_toStartOf="@+id/recipeSubmitButton"
+        app:layout_constraintHorizontal_bias="0.437"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/excludeIngredient"
+        android:layout_width="259dp"
+        android:layout_height="46dp"
+        android:hint="Exclude: Tomato, Cheese"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/recipeSubmitButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.298" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/recipeSearch"
+        android:layout_width="259dp"
+        android:layout_height="46dp"
+        android:hint="Recipe"
+        app:layout_constraintEnd_toStartOf="@+id/recipeSubmitButton"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="25dp" />
+
+    <TextView
+        android:id="@+id/recipeView"
+        android:layout_width="374dp"
+        android:layout_height="373dp"
+        android:background="#4CAF50"
+        android:textColorHighlight="#00000000"
+        android:textColorLink="#00000000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.567"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/excludeIngredient"
+        app:layout_constraintVertical_bias="0.891" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="306dp"
+        android:layout_height="134dp"
+        app:layout_constraintBottom_toBottomOf="@+id/recipeView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/recipeView"
+        app:layout_constraintVertical_bias="0.953"
+        tools:srcCompat="@tools:sample/avatars[3]" />
+</androidx.constraintlayout.widget.ConstraintLayout>
