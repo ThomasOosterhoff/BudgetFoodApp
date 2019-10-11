@@ -49,37 +49,43 @@ public class RecipeApi extends AppCompatActivity {
         request = Volley.newRequestQueue(this);
     }
 
-    public void showRecipe(View view){
-        //Url to receive recipes
-        String url = getResources().getString(R.string.recipe_api);
+    private String prepareExcludesForUrl(String excludes, int includeLength){
+        String result = "";
 
-        //Get the prefered ingredients
-        String ingredients = include.getText().toString();
-        //Get excluded ingredients
-        String excludes = exclude.getText().toString();
-
+        if(excludes.length() > 0) {//If there are ingredients to exclude
+            //Remove all spaces
+            excludes.replaceAll("\\s+", "");
+            if(includeLength > 0)   //If there are ingredients to include, seperate them by ,
+            {
+                result += ",";
+            }
+            //Add - before ingredients to exclude them
+            result += "-";
+            //Add - after ,
+            excludes.replaceAll(",", ",-");
+        }
+        //Add to url
+        result += excludes;
+        return result;
+    }
+    private String constructUrl(String url, String ingredients, String excludes){
+        //If there are any ingredient preferences, add the pre-fix to the url
         if(ingredients.length()+excludes.length() > 0){
             url += getResources().getString(R.string.ingredient);
         }
 
-        //Remove all spaces
-        ingredients.replaceAll("\\s+","");
-        //Add to url
-        url += ingredients;
-
-        //Remove all spaces
-        excludes.replaceAll("\\s+", "");
-        //Add - before ingredients
-        //If there are ingredients to include
-        if(ingredients.length() > 0)
-        {
-            url += ",";
+        try {
+            //Remove all spaces
+            ingredients.replaceAll("\\s+", "");
+            //Add to url
+            url += ingredients;
         }
-        url += "-";
-        //Add - after ,
-        excludes.replaceAll(",", ",-");
-        //Add to url
-        url += excludes;
+        catch(Exception e){
+            Log.d("ERROR", "Can't add ingredients to url");
+        }
+
+        url += prepareExcludesForUrl(excludes, include.length());
+
         //Add recipe to url
         if(ingredients.length()+excludes.length()>0){
             url += "&";
@@ -90,6 +96,19 @@ public class RecipeApi extends AppCompatActivity {
         keywords.replaceAll(" ", "_");
         //Add keywords to url
         url+= keywords;
+        return url;
+    }
+
+    public void showRecipe(View view){
+        //Url to receive recipes
+        String url = getResources().getString(R.string.recipe_api);
+        //Get the prefered ingredients
+        String ingredients = include.getText().toString();
+        //Get excluded ingredients
+        String excludes = exclude.getText().toString();
+        //Construct url
+        url = constructUrl(url, ingredients, excludes);
+
         Log.d("TEST", "url = "+url);
         JsonObjectRequest request1 = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
@@ -103,11 +122,15 @@ public class RecipeApi extends AppCompatActivity {
                         JSONObject recipe = jsonArray.getJSONObject(i);
 
                         String title = recipe.getString("title");
-                        Picasso.get().load(recipe.getString("thumbnail")).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(imageView);
+                        String imagePath = recipe.getString("thumbnail");
+                        if (!imagePath.isEmpty()) //An image exists
+                        {
+                            Picasso.get().load(imagePath).memoryPolicy(MemoryPolicy.NO_CACHE).networkPolicy(NetworkPolicy.NO_CACHE).into(imageView);
+                        }
                         String href = recipe.getString("href");
 
                         Log.d("TEST", "got all data");
-                        recipeView.append(title + "\n" + href);
+                        recipeView.setText(title + "\n" + href);
                     }
                 }
                 catch(JSONException e){
