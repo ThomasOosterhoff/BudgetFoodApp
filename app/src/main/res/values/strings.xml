@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
 
 
-    <string name="recipe_api">http://www.recipepuppy.com/api/?</string>
+    <string name="recipe_puppy_api">http://www.recipepuppy.com/api/?</string>
     <string name="ingredient">i=</string>
     <string name="recipe_keyword">q=</string>
 </resources>

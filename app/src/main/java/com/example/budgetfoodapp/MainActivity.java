@@ -55,6 +55,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onRecipeActivity(View v){
-        startActivity(new Intent(MainActivity.this, RecipeApi.class));
+        startActivity(new Intent(MainActivity.this, RecipeApiActivity.class));
     }
 }
